@@ -93,7 +93,11 @@ int main(int argc, char* argv[]) {
       std::stringstream data(line);
       char c;
       int v0,v1,v2;
-      data >> c >> v0 >> v1 >> v2;
+      data >> c >> v0;
+      data.ignore(1, ' '); // skip texture and normal indices if present
+      data >> v1;
+      data.ignore(1, ' ');
+      data >> v2;
       faceList.push_back(Vec3ui(v0-1,v1-1,v2-1));
     }
     else if( line.substr(0,2) == std::string("vn") ){
@@ -115,7 +119,9 @@ int main(int argc, char* argv[]) {
   Vec3f unit(1,1,1);
   min_box -= padding*dx*unit;
   max_box += padding*dx*unit;
-  Vec3ui sizes = Vec3ui((max_box - min_box)/dx);
+  Vec3ui sizes = Vec3ui(std::ceil((max_box[0] - min_box[0])/dx),
+                        std::ceil((max_box[1] - min_box[1])/dx),
+                        std::ceil((max_box[2] - min_box[2])/dx));
   
   std::cout << "Bound box size: (" << min_box << ") to (" << max_box << ") with dimensions " << sizes << "." << std::endl;
 
