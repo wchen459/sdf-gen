@@ -4,8 +4,8 @@
 /*
  * Configuration Header for SDFGEN
  */
- 
+
 /// Configured libraries
 #cmakedefine HAVE_VTK
 
-#endif //SDFGEN_CONFIG_H
+#endif  // SDFGEN_CONFIG_H

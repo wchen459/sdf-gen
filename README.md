@@ -1,25 +1,26 @@
 # SDFGen
-A simple commandline utility to generate grid-based signed distance field (level set) generator from triangle meshes, using code from Robert Bridson's website.
 
+A utility for converting closed oriented triangle meshes into grid-based signed distance fields.
 
-The MIT License (MIT)
+The output file format is:
 
-Copyright (c) 2015, Christopher Batty
+\<ni\> \<nj\> \<nk\>
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+\<origin_x\> \<origin_y\> \<origin_z\>
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+\<dx\>
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+\<value_1\> \<value_2\> \<value_3\> [...]
+
+  - `(ni,nj,nk)` are the integer dimensions of the resulting distance field.
+  - `(origin_x,origin_y,origin_z)` is the 3D position of the grid origin.
+  - `dx` is the grid spacing.
+  - `value_n` are the signed distance data values, in ascending order of i, then j, then k.
+The output filename will match that of the input, with the OBJ suffix replaced with SDF.
+
+Usage: SDFGen \<filename\> \<dx\> \<padding\>
+
+Where:
+  - `filename` specifies a Wavefront OBJ (text) file representing a *triangle* mesh (no quad or poly meshes allowed). File must use the suffix ".obj".
+  - `dx` specifies the length of grid cell in the resulting distance field.
+  - `padding` specifies the number of cells worth of padding between the object bound box and the boundary of the distance field grid. Minimum is 1.

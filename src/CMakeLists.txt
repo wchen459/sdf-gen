@@ -24,7 +24,7 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O3 -march=native")
 #checks if VTK is available
 find_package(VTK QUIET COMPONENTS vtkIOXML)
 if(VTK_FOUND)
-	set(HAVE_VTK 1)
+  set(HAVE_VTK 1)
 endif()
 
 #Generates config.h replacing expressions in config.h.in with actual values
@@ -37,7 +37,7 @@ add_executable(${PROJECT_NAME} main.cpp  makelevelset3.cpp)
 
 if(VTK_FOUND)
     include(${VTK_USE_FILE})
-	target_link_libraries(${PROJECT_NAME} ${VTK_LIBRARIES})
+  target_link_libraries(${PROJECT_NAME} ${VTK_LIBRARIES})
 endif()
 
 install(TARGETS ${PROJECT_NAME}
