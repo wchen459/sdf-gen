@@ -24,3 +24,9 @@ Where:
   - `filename` specifies a Wavefront OBJ (text) file representing a *triangle* mesh (no quad or poly meshes allowed). File must use the suffix ".obj".
   - `dx` specifies the length of grid cell in the resulting distance field.
   - `padding` specifies the number of cells worth of padding between the object bound box and the boundary of the distance field grid. Minimum is 1.
+
+## Example output
+
+Example python script is provided for parsing and visualizing the generated signed density field.
+
+![Example visual](resources/banana.png  "SDF of a banana")
