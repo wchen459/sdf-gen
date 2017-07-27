@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.6)
-Project("SDFGen")
+project("sdf_gen")
 
 # Set the build type.  Options are:
 #  Coverage       : w/ debug symbols, w/o optimization, w/ code-coverage
@@ -29,16 +29,16 @@ endif()
 
 #Generates config.h replacing expressions in config.h.in with actual values
 configure_file(
-  "${CMAKE_CURRENT_SOURCE_DIR}/config.h.in"
-  "${CMAKE_CURRENT_SOURCE_DIR}/config.h"
+  "${CMAKE_CURRENT_SOURCE_DIR}/src/config.h.in"
+  "${CMAKE_CURRENT_SOURCE_DIR}/src/config.h"
 )
 
-add_executable(${PROJECT_NAME} main.cpp  makelevelset3.cpp)
+add_executable(${PROJECT_NAME} src/main.cpp src/makelevelset3.cpp)
 
 if(VTK_FOUND)
     include(${VTK_USE_FILE})
   target_link_libraries(${PROJECT_NAME} ${VTK_LIBRARIES})
 endif()
 
-install(TARGETS ${PROJECT_NAME}
-        RUNTIME DESTINATION bin)
+install(TARGETS ${PROJECT_NAME} DESTINATION bin)
+install(PROGRAMS scripts/sdf_tools DESTINATION bin)

@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import time, sys
+import argparse, time, sys
 try:
     import cPickle as pickle
 except:
@@ -7,13 +7,12 @@ except:
 import numpy as np
 from itertools import izip
 
-pkl_file = "banana.pkl"
-
 
 class SignedDensityField(object):
     """ Data is stored in the following way
             data[x, y, z]
     """
+
     def __init__(self, data, origin, delta):
         self.data = data
         self.nx, self.ny, self.nz = data.shape
@@ -89,5 +88,21 @@ class SignedDensityField(object):
         return cls(data['data'], data['origin'], data['delta'])
 
 if __name__ == "__main__":
-    sdf = SignedDensityField.from_pkl(pkl_file)
-    sdf.visualize()
+    parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument('--file', '-f', help="Path to .sdf or .pkl file.", required=True)
+    parser.add_argument('-v', action='store_true', help="Visualize signed density field.")
+    parser.add_argument('--export', '-e', help="Export to a pickle file.")
+
+    args = parser.parse_args()
+    filename = args.file
+    if filename.endswith('.sdf'):
+        sdf = SignedDensityField.from_sdf(filename)
+    elif filename.endswith('.pkl'):
+        sdf = SignedDensityField.from_pkl(filename)
+    else:
+        print "File has to be of type .sdf or .pkl!"
+        sys.exit(1)
+    if args.v:
+        sdf.visualize()
+    if args.export:
+        sdf.dump(args.export)
