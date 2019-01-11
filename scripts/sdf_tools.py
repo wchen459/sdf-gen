@@ -59,11 +59,11 @@ class SignedDensityField(object):
             axis = 2
             lines = file.readlines()
             nx, ny, nz = map(int, lines[0].split(' '))
-            print nx, ny, nz
+            print(nx, ny, nz)
             x0, y0, z0 = map(float, lines[1].split(' '))
-            print x0, y0, z0
+            print(x0, y0, z0)
             delta = float(lines[2].strip())
-            print delta
+            print(delta)
             data = np.zeros([nx, ny, nz])
             for i, line in enumerate(lines[3:]):
                 idx = i % nx
@@ -93,7 +93,7 @@ if __name__ == "__main__":
     elif filename.endswith('.pkl'):
         sdf = SignedDensityField.from_pkl(filename)
     else:
-        print "File has to be of type .sdf or .pkl!"
+        print("File has to be of type .sdf or .pkl!")
         sys.exit(1)
     if args.v:
         sdf.visualize()
