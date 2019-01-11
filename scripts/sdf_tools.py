@@ -1,9 +1,5 @@
-#!/usr/bin/env python
 import argparse, time, sys
-try:
-    import cPickle as pickle
-except:
-    import pickle
+import pickle
 import numpy as np
 from itertools import izip
 
@@ -38,11 +34,8 @@ class SignedDensityField(object):
         pickle.dump(data, open(pkl_file, "wb"), protocol=2)
 
     def visualize(self, max_dist=0.1):
-        try:
-            from mayavi import mlab
-        except:
-            print "mayavi is not installed!"
-
+        from mayavi import mlab
+        
         figure = mlab.figure('Signed Density Field')
         SCALE = 100  # The dimensions will be expressed in cm for better visualization.
         data = np.copy(self.data)
